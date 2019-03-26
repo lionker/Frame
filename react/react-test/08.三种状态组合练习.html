@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+</head>
+
+<body>
+
+    <div id="example2"></div>
+    <script type="text/babel">
+      /*
+      组件化编码流程：
+        1. 拆分组件: 根据页面功能进行拆分
+          App
+          AddTodo
+          TodoList
+        2. 实现静态组件
+          先实现大的组件（最外层组件），再实现里面的组件。
+          有一个基本的显示效果
+        3. 实现动态组件
+          - 需不需要定义状态数据？  看页面是否有变化，有变化就要定义状态数据
+          - 状态数据定义再哪里？ App
+            如果数据是单个组件需要，就定义再单个组件内
+            如果数据是多个组件需要，就定义再公共的父组件中
+          - 状态数据定义成什么？
+            定义成对象、数组、基本数据类型。
+            方便插入数据和遍历展示，所以用数组
+          - 子组件如何操作父组件的数据？
+            父组件定义操作数据的方法（数据再哪，操作数据的方法就在在哪）
+            父组件将操作数据的方法传给子组件，子组件调用就能修改父组件的数据
+     */
+    class App extends React.Component { 
+        state = {
+            todoList: ['抽烟', '喝酒', '烫头']
+        }
+
+
+        //获取当前状态
+       add = (todo) => {
+           const {todoList} = this.state;
+         //更新状态  
+        //  const list = todoList.unshift(todo);  // 该方法会修改原来的数据--不好--不能修改原数据
+        // console.log(todoList); // ["aaa", "吃饭", "睡觉", "包郭德纲"]
+        // console.log(this.state.todoList);  
+           this.setState({
+          todoList: [todo, ...todoList] 
+       })
+    }
+       //组合虚拟DOM
+        render() { 
+            const { todoList } = this.state;
+            console.log(this)
+            return <div>
+                <h1>Simple TodeList</h1>
+                <AddTodo add={this.add} todoList={todoList}/>    
+                <TodeList todoList={todoList}/>    
+                </div>
+        }
+    }
+    //定义AddTodo组件
+    class AddTodo extends React.Component {
+        
+        static propTypes = {
+            add: PropTypes.func.isRequired
+        }
+        
+        constructor(props) {
+            super(props);
+            //定义返回的对象
+            this.msgInput = React.createRef();
+        }
+        // 添加Todo
+      addTodo = () => {
+        // 获取文本框的值
+        const value = this.msgInput.current.value.trim();
+        // 添加到todoList中
+        this.props.add(value);
+      }
+        render() {
+            console.log(this)
+            const num = this.props.todoList.length;
+        
+            return <div>
+                <input type='text' ref={this.msgInput}/>
+                <button onClick={this.addTodo}>Add #{num}</button>
+            </div>
+        }
+    }
+
+    class TodeList extends React.Component {
+        static propTypes = {
+        todoList: PropTypes.array.isRequired
+      }
+        render() {
+            const { todoList } = this.props;
+            console.log(this)
+            return <ul>
+                {/* <li>喝酒</li> */}
+                {
+                    todoList.map((item, index)=> <li key={index}>{item}</li>)
+                }
+            </ul>
+        }
+    }
+
+    //渲染组件
+    ReactDOM.render(<App />, document.getElementById('example2'));
+
+    </script>
+
+</body>
+
+</html>

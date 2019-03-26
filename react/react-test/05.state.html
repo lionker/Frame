@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+</head>
+
+<body>
+
+    <div id="example2"></div>
+    <script type="text/babel">
+    /*方式2: ES6类组件(复杂组件)*/
+/*     class Mycomponent2 extends React.Component {
+        constructor(props) {
+            super(props);
+            //初始化状态码
+            this.state = {
+                isLikeme: false
+            }
+
+            //修改自定义函数的this指向
+            this.handleClick = this.handleClick.bind(this);
+        }  
+
+        handleClick() {
+            const {isLikeme} = this.state;
+            this.setState({
+                isLikeme: !isLikeme
+            })           
+        }
+
+        render () {
+            const {isLikeme} = this.state;
+            
+            return <h2 onClick={this.handleClick}>{isLikeme ? '我喜欢你' : '你喜欢我'}</h2>
+        }
+    } */
+    //  简化
+    class Mycomponent2 extends React.Component {
+        state = {
+            isLikeme: false
+        }
+
+        handleClick = () => {
+            const {isLikeme} = this.state;
+            this.setState({
+                isLikeme: !isLikeme
+            })           
+        }
+
+        render () {
+            const {isLikeme} = this.state;
+            
+            return <h2 onClick={this.handleClick}>{isLikeme ? '我喜欢你' : '你喜欢我'}</h2>
+        }
+    }
+    ReactDOM.render(<Mycomponent2 />, document.getElementById('example2'));
+</script>
+
+</body>
+
+</html>

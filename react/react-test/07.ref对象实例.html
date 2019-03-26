@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+</head>
+
+<body>
+
+    <div id="example2"></div>
+    <script type="text/babel">
+        /*
+    需求: 自定义组件, 功能说明如下:
+      1. 界面如果页面所示
+      2. 点击按钮, 提示第一个输入框中的值
+      3. 当第2个输入框失去焦点时, 提示这个输入框中的值
+   */
+
+   /**
+   * 功能：ref 三种创建方法
+   *  React.createRef   (推荐使用)
+   *  input属性中写入 ref={(input) => this.funcRef = input} 
+   *  ref="stringRef"  此方法已废弃  
+   */
+    class Input extends React.Component {
+        constructor(props) {
+            super(props);
+            // this.textRef = React.createRef(); 
+        }
+
+        handleClick = () => {
+            // const input = this.textRef.current;
+            // const value = input.value.trim();
+            console.log(this.funcRef.value);
+            // alert(value);
+            // input.value = '';
+
+        }
+        handleBlur = (event) => {
+            console.log(event.target);
+            alert(event.target.value);
+        } 
+        render () {
+            return <div>
+                {/* <input type='text' ref={this.textRef} /> &nbsp;&nbsp; */}
+                <input type="text" ref={(input) => this.funcRef = input}/> &nbsp;&nbsp;
+                <button onClick={this.handleClick}>点击提示数据</button> &nbsp;&nbsp;
+                <input type='text' placeholder='失去焦点提示数据' onBlur={this.handleBlur}/>  
+            </div>
+        }
+    }    
+    ReactDOM.render(<Input />, document.getElementById('example2'));
+    </script>
+
+</body>
+
+</html>

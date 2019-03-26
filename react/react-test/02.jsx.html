@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="example"></div>
+    <div id="example2"></div>
+    <div id="example3"></div>
+    <script type="text/babel">
+        ReactDOM.render(
+            <h1>Hello, world!</h1>,
+            document.getElementById('example')
+        );
+    </script>
+    <script type="text/babel">
+    // 创建虚拟DOM对象
+    const vDom3 = React.createElement('span', {}, 'hello span');
+    const vDom1 = React.createElement('h2', {id: 'myId1', className: 'myClass1'}, 'I Like React!', vDom3);
+    console.log(vDom1);
+    // 渲染到页面中
+    ReactDOM.render(vDom1, document.getElementById('example2'));
+    </script>
+    <script type="text/babel">
+       const id = 'myid3';
+       const content = 'target React Native' ;
+       const vDom3 = <h2 id={id} className = 'myClass3'>{content}</h2>;
+        ReactDOM.render(vDom3, document.getElementById('example3'));
+    </script>
+</body>
+
+</html>

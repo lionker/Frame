@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+
+    <div id="example1"></div>
+    <div id="example2"></div>
+    
+    <script type="text/babel">
+	function Mycomponent1() {
+        console.log(this);
+        return <h2>方式一: 工厂函数组件(简单组件)</h2> 
+    }
+
+    /*方式2: ES6类组件(复杂组件)*/
+    class Mycomponent2 extends React.Component {
+        render () {
+            console.log(this);
+            return (
+                <div>
+                    <h2>方式2: ES6类组件</h2>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(<Mycomponent1 />, document.getElementById('example1'));
+    ReactDOM.render(<Mycomponent2 />, document.getElementById('example2'));
+</script>
+
+</body>
+
+</html>
