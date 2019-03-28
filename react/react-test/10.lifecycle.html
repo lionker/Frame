@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+</head>
+
+<body>
+
+    <div id="example2"></div>
+    <script type="text/babel">
+
+    class CycleLiffe extends React.Component {
+        constructor(props){
+            super(props);
+            console.log('constractor');
+            this.state={
+                date: new Date()
+            }
+            
+        }
+
+        componentWillMount(){
+            console.log('componentWillMount')
+        }
+        componentDidMount(){
+            console.log('componentDidMount')
+            this.intervalId= setInterval(() => {
+                this.setState({
+                    date: new Date()
+                })
+            }, 1000);
+        }
+        handleUnmount = () => {
+            ReactDOM.unmountComponentAtNode(document.getElementById('example2'))
+        }
+        render(){
+            console.log('render')
+            return (<div>
+                <p>
+                    Hello, <input type="text" placeholder="Your name here"/>!&nbsp;
+                    It is {this.state.date.toTimeString()}
+                </p>
+                <button onClick={this.handleUnmount}>点击,再见青春</button></div>
+            )
+        }
+       
+        componentWillUnmount(){
+            clearInterval(this.intervalId);
+            console.log('componentWillUnMount')
+        }
+
+        shouldComponentUpdate(){
+            
+            console.log('shouldComponentUpdate')
+            return true;
+        }
+        componentWillUpdate(){
+            console.log('componentWillUpdata')
+        }
+    }            
+
+    ReactDOM.render(<CycleLiffe />, document.getElementById('example2'));
+
+    </script>
+
+</body>
+
+</html>

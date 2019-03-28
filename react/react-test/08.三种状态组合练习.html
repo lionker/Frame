@@ -37,25 +37,26 @@
      */
     class App extends React.Component { 
         state = {
-            todoList: ['抽烟', '喝酒', '烫头']
+            todoList: ['抽烟', '喝酒', '烫头'],
+            value2: null
         }
 
 
         //获取当前状态
        add = (todo) => {
-           const {todoList} = this.state;
+           const {todoList, value2} = this.state;
          //更新状态  
         //  const list = todoList.unshift(todo);  // 该方法会修改原来的数据--不好--不能修改原数据
         // console.log(todoList); // ["aaa", "吃饭", "睡觉", "包郭德纲"]
         // console.log(this.state.todoList);  
            this.setState({
-          todoList: [todo, ...todoList] 
+          todoList: [todo, ...todoList],
        })
     }
        //组合虚拟DOM
         render() { 
             const { todoList } = this.state;
-            console.log(this)
+            console.log('1');
             return <div>
                 <h1>Simple TodeList</h1>
                 <AddTodo add={this.add} todoList={todoList}/>    
@@ -77,15 +78,17 @@
         }
         // 添加Todo
       addTodo = () => {
+          //提取公共部分
+        const msgInput = this.msgInput.current;
         // 获取文本框的值
-        const value = this.msgInput.current.value.trim();
+        const value = msgInput.value.trim();
         // 添加到todoList中
-        this.props.add(value);
+        if (value) this.props.add(value);
+        msgInput.value = '';
       }
         render() {
-            console.log(this)
             const num = this.props.todoList.length;
-        
+            console.log('2');
             return <div>
                 <input type='text' ref={this.msgInput}/>
                 <button onClick={this.addTodo}>Add #{num}</button>
@@ -99,7 +102,7 @@
       }
         render() {
             const { todoList } = this.props;
-            console.log(this)
+            console.log(3)
             return <ul>
                 {/* <li>喝酒</li> */}
                 {

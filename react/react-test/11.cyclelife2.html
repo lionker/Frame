@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+</head>
+
+<body>
+
+    <div id="example2"></div>
+    <script type="text/babel">
+
+/*     class CycleLiffe extends React.Component {
+        constructor(props){
+            super(props);
+            console.log('constractor');
+            this.state={
+                date: new Date()
+            }
+            
+        }
+
+        componentWillMount(){
+            console.log('componentWillMount')
+        }
+        componentDidMount(){
+            console.log('componentDidMount')
+            this.intervalId= setInterval(() => {
+                this.setState({
+                    date: new Date()
+                })
+            }, 1000);
+        }
+        handleUnmount = () => {
+            ReactDOM.unmountComponentAtNode(document.getElementById('example2'))
+        }
+        render(){
+            console.log('render')
+            return (<div>
+                <p>
+                    Hello, <input type="text" placeholder="Your name here"/>!&nbsp;
+                    It is {this.state.date.toTimeString()}
+                </p>
+                <button onClick={this.handleUnmount}>点击,再见青春</button></div>
+            )
+        }
+       
+        componentWillUnmount(){
+            clearInterval(this.intervalId);
+            console.log('componentWillUnMount')
+        }
+
+        shouldComponentUpdate(){
+            
+            console.log('shouldComponentUpdate')
+            return true;
+        }
+        componentWillUpdate(){
+            console.log('componentWillUpdata')
+        }
+    }            
+ */
+    class LifeCircle extends React.Component {
+        state = {
+            opacity: 1
+        }
+
+        componentDidMount() {
+            //设置定时器
+            this.intervalId = setInterval(()=>{
+                let {opacity} = this.state;
+                opacity -= 0.01;
+                if (opacity <= 0) opacity = 1;
+                //更新状态
+                this.setState({
+                    opacity
+                }) 
+            },1000/60)
+        }
+
+        handleUnmount = () => {
+            ReactDOM.unmountComponentAtNode(document.getElementById('example2'))
+        }
+
+        componentWillUnmount () {
+            // 关闭定时器
+            clearInterval(this.intervalId)
+        }
+
+        render() {
+            const {opacity} = this.state;
+            return <div>
+                <h2 style={{opacity, marginTop: 10}}>狗屎青春</h2>
+                <button onClick={this.handleUnmount}>再见</button>   
+            </div>
+        }
+    }
+
+    ReactDOM.render(<LifeCircle />, document.getElementById('example2'));
+
+    </script>
+
+</body>
+
+</html>
