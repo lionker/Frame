@@ -1,15 +1,20 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 
 export default class CommentItem extends Component {
-    render() {
-        return (
-          <li className="list-group-item">
-            <div className="handle">
-              <a href="javascript:;">删除</a>
-            </div>
-            <p className="user"><span >xxx</span><span>说:</span></p>
-            <p className="centence">React不错!</p>
-          </li>
-        )
-      }
+  static propTypes = {
+    comment: PropTypes.object.isRequired
+  }
+  render() {
+    const { comment } = this.props
+    return (
+      <li className="list-group-item">
+        <div className="handle">
+          <button className="btn" style={{ border: 'none', backgroundColor: 'rgba(0,0,0,0)', outline: 'none' }}>删除</button>
+        </div>
+        <p className="user"><span >{comment.username}</span><span>说:</span></p>
+        <p className="centence">{comment.content}</p>
+      </li>
+    )
+  }
 }

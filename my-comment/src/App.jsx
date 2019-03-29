@@ -6,12 +6,16 @@ import React, { Component } from 'react';
 */import AddComment from './components/add-comment/index';
 import CommentList from './components/comment-list/index';
 
-
-
-
-
 export default class App extends Component {
+   //由于数据需要组件件共享,所以在父组件设置
+    state = {
+        comments: [
+            {username: 'aaron', content: 'I Love rose', id: 1},
+            {username: "tylor", content: 'I Love aaron', id: 2},
+        ]
+    }
     render() {
+        const {comments} = this.state;
         return <div>
             <header className="site-header jumbotron">
                 <div className="container">
@@ -22,9 +26,9 @@ export default class App extends Component {
                     </div>
                 </div>
             </header>
-            <div>
-                <AddComment />
-                <CommentList />
+            <div className="container">
+                <AddComment update/>
+                <CommentList comments={comments} />
             </div>
         </div>
     }
