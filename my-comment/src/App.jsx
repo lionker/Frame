@@ -14,6 +14,19 @@ export default class App extends Component {
             {username: "tylor", content: 'I Love aaron', id: 2},
         ]
     }
+
+    //定义方法接收子组件传值
+    updataComment = (newComment) => {
+        const {comments} = this.state
+        this.setState({
+            comments:[{...newComment, id: comments.length+1}, ...comments]
+        })
+    }
+    delComment = (id) => {
+        this.setState({
+            comments: this.state.comments.filter((item) => item.id !== id) //将不需要的过滤出去
+        })
+    }
     render() {
         const {comments} = this.state;
         return <div>
@@ -27,8 +40,8 @@ export default class App extends Component {
                 </div>
             </header>
             <div className="container">
-                <AddComment update/>
-                <CommentList comments={comments} />
+                <AddComment updataComment={this.updataComment} />
+                <CommentList comments={comments} delComment={this.delComment}/>
             </div>
         </div>
     }
